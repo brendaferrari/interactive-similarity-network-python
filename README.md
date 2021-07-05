@@ -2,6 +2,8 @@
 
 Script developed to build an interactive molecular similarity network to visualize Tanimoto similarity between molecules in a dataset. 
 
+<img src="resources/images/eg.gif" width="428">
+
 ## Libraries used
 
 * [pandas](https://pandas.pydata.org/) - a Python package that provides fast, flexible, and expressive data structures designed to make working with "relational" or "labeled" data both easy and intuitive. 
@@ -56,7 +58,7 @@ To run use the following command:
 python similarityNetwork.py
 ```
 
-* The dataset layout should be in the format 'smiles' 'molecule_name' as presented in the [dataset_ds.smi](resources\dataset_ds.smi)
+* The dataset layout should be in the format 'smiles' 'molecule_name' as presented in the [dataset_ds.smi](resources/dataset_ds.smi)
 
 * The threshold may be changed in line 40 as it follows
 ```
