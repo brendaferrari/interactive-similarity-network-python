@@ -1,0 +1,108 @@
+<html>
+<head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis.css" type="text/css" />
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vis/4.16.1/vis-network.min.js"> </script>
+<center>
+<h1>Similarity Network</h1>
+</center>
+
+<!-- <link rel="stylesheet" href="../node_modules/vis/dist/vis.min.css" type="text/css" />
+<script type="text/javascript" src="../node_modules/vis/dist/vis.js"> </script>-->
+
+<style type="text/css">
+
+        #mynetwork {
+            width: 100%;
+            height: 850px;
+            background-color: #ffffff;
+            border: 1px solid lightgray;
+            position: relative;
+            float: left;
+        }
+
+        
+
+        
+
+        
+</style>
+
+</head>
+
+<body>
+<div id = "mynetwork"></div>
+
+
+<script type="text/javascript">
+
+    // initialize global variables.
+    var edges;
+    var nodes;
+    var network; 
+    var container;
+    var options, data;
+
+    
+    // This method is responsible for drawing the graph, returns the drawn network
+    function drawGraph() {
+        var container = document.getElementById('mynetwork');
+        
+        
+
+        // parsing and collecting nodes and edges from the python
+        nodes = new vis.DataSet([{"id": "CN(C)Cc1n-2c(nn1)CN=C(c1ccccc1)c1cc(Cl)ccc12", "label": "Adinazolam", "shape": "dot"}, {"id": "Cc1n-2c(nn1)CN=C(c1ccccc1)c1cc(Cl)ccc12", "label": "Alprazolam", "shape": "dot"}, {"id": "Brc1cc2c(cc1)NC(=O)CN=C2c1ncccc1", "label": "Bromazepam", "shape": "dot"}, {"id": "CNC1=Nc2c(cc(Cl)cc2)C(c2ccccc2)=[N+]([O-])C1", "label": "Chlordiazepoxide", "shape": "dot"}, {"id": "CN1c2ccc(Cl)cc2N(c2ccccc2)C(=O)CC1=O", "label": "Clobazam", "shape": "dot"}, {"id": "[O-][N+](=O)c1cc2c(cc1)NC(=O)CN=C2c1c(Cl)cccc1", "label": "Clonazepam", "shape": "dot"}, {"id": "OC(=O)C1N=C(c2ccccc2)c2cc(Cl)ccc2NC1=O", "label": "Clorazepate", "shape": "dot"}, {"id": "Clc1cc2c(cc1)NC(=O)CN=C2c1c(Cl)cccc1", "label": "Delorazepam", "shape": "dot"}, {"id": "[O-][N+]1=C(c2ccccc2)c2cc(Cl)ccc2NC(=O)C1", "label": "Demoxepam", "shape": "dot"}, {"id": "Clc1cc2c(cc1)NC(=O)CC(=O)N2c1ccccc1", "label": "Desmethylclobazam", "shape": "dot"}]);
+        edges = new vis.DataSet([{"from": "Cc1n-2c(nn1)CN=C(c1ccccc1)c1cc(Cl)ccc12", "length": 1000, "to": "CN(C)Cc1n-2c(nn1)CN=C(c1ccccc1)c1cc(Cl)ccc12"}, {"from": "CNC1=Nc2c(cc(Cl)cc2)C(c2ccccc2)=[N+]([O-])C1", "length": 1000, "to": "Cc1n-2c(nn1)CN=C(c1ccccc1)c1cc(Cl)ccc12"}, {"from": "CN1c2ccc(Cl)cc2N(c2ccccc2)C(=O)CC1=O", "length": 1000, "to": "Cc1n-2c(nn1)CN=C(c1ccccc1)c1cc(Cl)ccc12"}, {"from": "[O-][N+](=O)c1cc2c(cc1)NC(=O)CN=C2c1c(Cl)cccc1", "length": 1000, "to": "Brc1cc2c(cc1)NC(=O)CN=C2c1ncccc1"}, {"from": "OC(=O)C1N=C(c2ccccc2)c2cc(Cl)ccc2NC1=O", "length": 1000, "to": "Cc1n-2c(nn1)CN=C(c1ccccc1)c1cc(Cl)ccc12"}, {"from": "Clc1cc2c(cc1)NC(=O)CN=C2c1c(Cl)cccc1", "length": 1000, "to": "Cc1n-2c(nn1)CN=C(c1ccccc1)c1cc(Cl)ccc12"}, {"from": "Clc1cc2c(cc1)NC(=O)CN=C2c1c(Cl)cccc1", "length": 1000, "to": "Brc1cc2c(cc1)NC(=O)CN=C2c1ncccc1"}, {"from": "Clc1cc2c(cc1)NC(=O)CN=C2c1c(Cl)cccc1", "length": 1000, "to": "[O-][N+](=O)c1cc2c(cc1)NC(=O)CN=C2c1c(Cl)cccc1"}, {"from": "Clc1cc2c(cc1)NC(=O)CN=C2c1c(Cl)cccc1", "length": 1000, "to": "OC(=O)C1N=C(c2ccccc2)c2cc(Cl)ccc2NC1=O"}, {"from": "[O-][N+]1=C(c2ccccc2)c2cc(Cl)ccc2NC(=O)C1", "length": 1000, "to": "CNC1=Nc2c(cc(Cl)cc2)C(c2ccccc2)=[N+]([O-])C1"}, {"from": "[O-][N+]1=C(c2ccccc2)c2cc(Cl)ccc2NC(=O)C1", "length": 1000, "to": "[O-][N+](=O)c1cc2c(cc1)NC(=O)CN=C2c1c(Cl)cccc1"}, {"from": "[O-][N+]1=C(c2ccccc2)c2cc(Cl)ccc2NC(=O)C1", "length": 1000, "to": "OC(=O)C1N=C(c2ccccc2)c2cc(Cl)ccc2NC1=O"}, {"from": "[O-][N+]1=C(c2ccccc2)c2cc(Cl)ccc2NC(=O)C1", "length": 1000, "to": "Clc1cc2c(cc1)NC(=O)CN=C2c1c(Cl)cccc1"}, {"from": "Clc1cc2c(cc1)NC(=O)CC(=O)N2c1ccccc1", "length": 1000, "to": "CN1c2ccc(Cl)cc2N(c2ccccc2)C(=O)CC1=O"}, {"from": "Clc1cc2c(cc1)NC(=O)CC(=O)N2c1ccccc1", "length": 1000, "to": "OC(=O)C1N=C(c2ccccc2)c2cc(Cl)ccc2NC1=O"}, {"from": "Clc1cc2c(cc1)NC(=O)CC(=O)N2c1ccccc1", "length": 1000, "to": "Clc1cc2c(cc1)NC(=O)CN=C2c1c(Cl)cccc1"}, {"from": "Clc1cc2c(cc1)NC(=O)CC(=O)N2c1ccccc1", "length": 1000, "to": "[O-][N+]1=C(c2ccccc2)c2cc(Cl)ccc2NC(=O)C1"}]);
+
+        // adding nodes and edges to the graph
+        data = {nodes: nodes, edges: edges};
+
+        var options = {
+    "configure": {
+        "enabled": false
+    },
+    "edges": {
+        "color": {
+            "inherit": true
+        },
+        "smooth": {
+            "enabled": false,
+            "type": "continuous"
+        }
+    },
+    "interaction": {
+        "dragNodes": true,
+        "hideEdgesOnDrag": false,
+        "hideNodesOnDrag": false
+    },
+    "physics": {
+        "enabled": true,
+        "stabilization": {
+            "enabled": true,
+            "fit": true,
+            "iterations": 1000,
+            "onlyDynamicEdges": false,
+            "updateInterval": 50
+        }
+    }
+};
+        
+        
+
+        
+
+        network = new vis.Network(container, data, options);
+	 
+        
+
+
+        
+
+        return network;
+
+    }
+
+    drawGraph();
+
+</script>
+</body>
+</html>
